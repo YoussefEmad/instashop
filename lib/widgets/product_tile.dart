@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../models/product.dart';
+import '../screens/product/product_details_screen.dart';
 
 class ProductTile extends StatelessWidget {
   final Product product;
@@ -16,15 +17,27 @@ class ProductTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image.asset(product.image, width: 50),
-          SizedBox(height: 8),
-          Text('£${product.price.toInt()}'),
-          TextButton(onPressed: onTap,
-              child: Text(isInCart ? 'Remove' : 'Add to Cart')),
-        ],
+      child: InkWell(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ProductDetailsScreen(product: product),
+            ),
+          );
+        },
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(product.image, width: 50),
+            SizedBox(height: 8),
+            Text('£${product.price.toInt()}'),
+            TextButton(
+              onPressed: onTap,
+              child: Text(isInCart ? 'Remove' : 'Add to Cart'),
+            ),
+          ],
+        ),
       ),
     );
   }
